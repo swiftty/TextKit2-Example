@@ -17,6 +17,7 @@ open class TextView: UIView {
         addSubview(contentView)
         contentView.frame = bounds
         contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        contentView.alwaysBounceVertical = true
         contentView.transform = .init(rotationAngle: .pi / 2)
     }
 
@@ -52,13 +53,13 @@ private final class ContentView: UIScrollView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        textLayoutManager.textViewportLayoutController.delegate = self
-
         textContentStorage.addTextLayoutManager(textLayoutManager)
         textLayoutManager.textContainer = NSTextContainer(size: .init(width: 200, height: 0))
 
         contentLayer.frame = bounds
         layer.addSublayer(contentLayer)
+
+        textLayoutManager.textViewportLayoutController.delegate = self
     }
 
     required init?(coder: NSCoder) {
